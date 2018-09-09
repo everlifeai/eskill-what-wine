@@ -1,6 +1,9 @@
 'use strict'
+require('dotenv').config()
+
 const cote = require('cote')
 const u = require('elife-utils')
+const request = require('request')
 
 /*      understand/
  * This is the main entry point where we start.
@@ -72,6 +75,9 @@ function startMicroservice() {
             if(req.msg.toLowerCase().startsWith("what wine ")) {
                 askedForService = true
                 cb(null, true)
+                sendReply("What food would you be eating with the wine?", req)
+            } else {
+                cb()
             }
         }
     })
@@ -83,8 +89,37 @@ function startMicroservice() {
  */
 let askedForService;
 
-function findWine(msg, cb) {
-    cb(null, "Drink responsibly!")
+function findWine(food, cb) {
+    let key = process.env.MASHAPE_KEY
+    if(!key) {
+        cb(`Error! API Key not set for service`)
+        return
+    }
+    let options = {
+        url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/food/wine/pairing",
+        qs: { food: food },
+        headers: {
+            "X-Mashape-Key": key,
+            "Accept": "application/json",
+        },
+    }
+    request.get(options, (err, res, body) => {
+        if(err) cb(err)
+        else {
+            try {
+                let rep = JSON.parse(body)
+                if(rep.pairingText) cb(null, rep.pairingText)
+                else {
+                    u.showMsg(rep)
+                    cb(null, `Hmm...No. I don't really know how to pair ${food}`)
+                }
+            } catch(e) {
+                cb(null, 'Oh dear! Something went wrong!')
+                u.showErr(e)
+            }
+        }
+    })
+    cb(null, "Let me check...")
 }
 
 main()

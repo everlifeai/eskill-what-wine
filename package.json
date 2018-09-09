@@ -1,0 +1,12 @@
+{
+  "name": "what-wine",
+  "version": "0.1.0",
+  "description": "Wine Recommendations for Your Dinner",
+  "main": "index.js",
+  "author": "charles.lobo@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "cote": "^0.17.1",
+    "elife-utils": "everlifeai/elife-utils"
+  }
+}

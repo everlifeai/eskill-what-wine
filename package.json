@@ -7,7 +7,6 @@
   "license": "MIT",
   "dependencies": {
     "cote": "^0.17.1",
-    "dotenv": "^6.0.0",
     "elife-utils": "everlifeai/elife-utils",
     "request": "^2.88.0"
   }

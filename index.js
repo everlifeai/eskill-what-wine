@@ -1,6 +1,4 @@
 'use strict'
-require('dotenv').config()
-
 const cote = require('cote')({statusLogsEnabled:false})
 const u = require('elife-utils')
 const request = require('request')

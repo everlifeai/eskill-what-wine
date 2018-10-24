@@ -37,6 +37,7 @@ function registerWithCommMgr() {
         type: 'register-msg-handler',
         mskey: msKey,
         mstype: 'msg',
+        mshelp: [ { cmd: '/what_wine', txt: 'give me a wine recommendation' } ],
     }, (err) => {
         if(err) u.showErr(err)
     })
@@ -70,7 +71,9 @@ function startMicroservice() {
                 }
             })
         } else {
-            if(req.msg.toLowerCase().startsWith("what wine ")) {
+            let msg = req.msg
+            if(!msg) return cb()
+            if(msg.startsWith("what wine ") || msg.startsWith('/what_wine')) {
                 askedForService = true
                 cb(null, true)
                 sendReply("What food would you be eating with the wine?", req)

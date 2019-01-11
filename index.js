@@ -73,7 +73,7 @@ function startMicroservice() {
         } else {
             let msg = req.msg
             if(!msg) return cb()
-            if(msg.startsWith("what wine ") || msg.startsWith('/what_wine')) {
+            if(msg.startsWith('/what_wine')) {
                 askedForService = true
                 cb(null, true)
                 sendReply("What food would you be eating with the wine?", req)

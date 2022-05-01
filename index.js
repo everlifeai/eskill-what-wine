@@ -91,16 +91,16 @@ function startMicroservice() {
 let askedForService;
 
 function findWine(food, cb) {
-    let key = process.env.MASHAPE_KEY
+    let key = process.env.SPOONACULAR_KEY
     if(!key) {
         cb(`Error! API Key not set for service`)
         return
     }
     let options = {
-        url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/food/wine/pairing",
+        url: "https://api.spoonacular.com/food/wine/pairing?apiKey="+key,
         qs: { food: food },
         headers: {
-            "X-Mashape-Key": key,
+            
             "Accept": "application/json",
         },
     }
@@ -124,4 +124,3 @@ function findWine(food, cb) {
 }
 
 main()
-
